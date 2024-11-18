@@ -4,7 +4,6 @@ import { Calendar, Clock, Scissors, Users } from 'lucide-react';
 import TeamPage from './team/page';
 import ServicesPage from './services/page';
 import Testimonials from './testimonials/page';
-import Footer from '@/components/footer';
 
 export default function Home() {
   return (
@@ -56,7 +55,6 @@ export default function Home() {
         <TeamPage />
         <ServicesPage />
         <Testimonials />
-        <Footer />
       </section>
     </div>
   );
