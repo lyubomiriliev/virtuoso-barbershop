@@ -80,7 +80,7 @@ const services = [
 ];
 
 const barbers = [
-  { id: "alex", name: "Alexander Petrov" },
+  { id: "alexander", name: "Alexander Petrov" },
   { id: "viktor", name: "Viktor Ivanov" },
   { id: "vasil", name: "Vasil Donev" },
   { id: "stoyan", name: "Stoyan Bairev" },
@@ -100,6 +100,11 @@ export default function BookingPage() {
     const service = searchParams.get("service");
     if (service) {
       setSelectedService(service);
+    }
+  
+    const barber = searchParams.get("barber");
+    if (barber) {
+      setSelectedBarber(barber);
     }
   }, [searchParams]);
 

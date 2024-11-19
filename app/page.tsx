@@ -16,7 +16,7 @@ export default function Home() {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative w-full flex flex-col justify-center items-center z-10 text-center text-white px-4">
+        <div className=" w-full flex flex-col justify-center items-center z-10 text-center text-white px-4">
           <Image width={600} height={200} alt="/" src="/virtuosoHeroLogo.svg" />
           <p className="text-base lg:text-xl mb-8 uppercase">
             Premium grooming for the modern gentleman
@@ -45,11 +45,26 @@ export default function Home() {
               </Button>
             </Link>
           </div>
+          <Link href="/booking">
+          <div className="absolute bottom-24 right-4 lg:bottom-6 lg:right-6">
+          <div className="relative flex justify-center items-center">
+            {/* Outer Pulsing Ring */}
+            <div className="absolute inset-0 w-24 h-24 lg:w-32 lg:h-32 rounded-full animate-ping bg-yellow-600 opacity-75"></div>
+
+            {/* Circle Button */}
+            <div className="w-24 h-24 lg:w-32 lg:h-32 border-2 rounded-full flex justify-center items-center border-yellow-600">
+              <div className="w-20 h-20 lg:w-28 lg:h-28 whitespace-nowrap object-cover rounded-full flex justify-center text-xs lg:text-base items-center uppercase font-bold bg-yellow-600">
+                Book Now
+              </div>
+            </div>
+          </div>
+          </div>
+          </Link>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-background">
+      <section className="pt-20 bg-background">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
@@ -77,8 +92,8 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col justify-center items-center">
-        <TeamPage />
         <ServicesPage />
+        <TeamPage />
         <Testimonials />
       </section>
     </div>
@@ -95,10 +110,10 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="p-6 border rounded-xl bg-background">
+    <div className="p-6 border flex flex-col justify-center items-center rounded-xl bg-background">
       <Icon className="h-12 w-12 mb-4 text-primary" />
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      <p className="text-muted-foreground text-center">{description}</p>
     </div>
   );
 }
