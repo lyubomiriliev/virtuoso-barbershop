@@ -1,11 +1,13 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const services = [
   {
-    id: 1,
+    id: "haircut",
     name: "Classic Haircut",
     img: "/haircut.webp",
     description: "Traditional haircut with modern styling",
@@ -13,7 +15,7 @@ const services = [
     price: "35 BGN",
   },
   {
-    id: 2,
+    id: "beard",
     name: "Beard Trim",
     img: "/beardShave.webp",
     description: "Professional beard shaping and grooming",
@@ -21,7 +23,7 @@ const services = [
     price: "20 BGN",
   },
   {
-    id: 3,
+    id: "combo",
     name: "Combo Hair & Beard",
     img: "/combo.webp",
     description: "Complete grooming package - the practical choice",
@@ -29,7 +31,7 @@ const services = [
     price: "50 BGN",
   },
   {
-    id: 4,
+    id: "fatherSon",
     name: "Father & Son",
     img: "/fatherSon.webp",
     description: "Get the best style for you and your son.",
@@ -37,7 +39,7 @@ const services = [
     price: "65 BGN",
   },
   {
-    id: 5,
+    id: "styling",
     name: "Perfect Styling",
     img: "/styling.webp",
     description: "Get your hair in the best possible styling",
@@ -45,7 +47,7 @@ const services = [
     price: "15 BGN",
   },
   {
-    id: 6,
+    id: "camouflage",
     name: "Beard & Camouflage",
     img: "/camouflageBeard.webp",
     description: "Shape, shave and colour for your beard.",
@@ -53,15 +55,15 @@ const services = [
     price: "25 BGN",
   },
   {
-    id: 7,
-    name: "Eyebrows trim & shape",
+    id: "eyebrows",
+    name: "Eyebrows Trim",
     img: "/eyebrows.webp",
     description: "Shape your eyebrows to get the perfect look.",
     duration: "15 min",
     price: "15 BGN",
   },
   {
-    id: 8,
+    id: "face",
     name: "Face Cleansing",
     img: "/cleansing.webp",
     description: "Fresh and clean skin to start your day.",
@@ -71,6 +73,12 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  const router = useRouter();
+
+  const handleBookNow = (serviceId: string) => {
+    router.push(`/booking?service=${serviceId}`);
+  };
+
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
       <div className="text-center mb-12">
@@ -84,27 +92,31 @@ export default function ServicesPage() {
         {services.map((service) => (
           <Card
             key={service.id}
-            className="p-6 bg-gradient-to-r from-background via-background/80 to-black/20 z-20 relative overflow-hidden"
+            className="pl-4  pr-10 py-8 z-20 relative overflow-hidden hover:scale-110 duration-500 ease-in-out"
           >
             <h3 className="text-xl font-semibold mb-2 z-20">{service.name}</h3>
-            <div className="bg-gradient-to-r from-background via-background/90 to-black/20 absolute inset-0 -z-10"></div>
+            <div className="bg-gradient-to-r from-background via-background/90 to-background/10 absolute inset-0 -z-10"></div>
             <Image
               width={400}
               height={400}
               alt={service.name}
               src={service.img}
-              className="absolute -top-4 left-16 -z-50"
+              className="absolute -top-20 lg:-top-4 left-16 -z-50"
             />
-            <p className="text-sm mb-4">{service.description}</p>
             <div className="space-y-2">
               <p className="text-sm">Duration: {service.duration}</p>
-              <p className="text-lg font-semibold flex justify-start items-center w-1/3">
+              <p className="text-lg font-semibold flex justify-start items-center whitespace-nowrap w-1/3">
                 {service.price}
               </p>
             </div>
-            <Link href="/booking" className="block mt-4">
-              <Button className="w-full">Book Now</Button>
-            </Link>
+            <div className="mt-5 flex justify-center w-1/3 lg:w-2/4">
+              <Button
+                onClick={() => handleBookNow(service.id)}
+                className="w-full"
+              >
+                Book Now
+              </Button>
+            </div>
           </Card>
         ))}
       </div>

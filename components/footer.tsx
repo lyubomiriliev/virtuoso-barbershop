@@ -31,11 +31,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <Phone className="w-4 h-4" />
-                <span>+359 88 888 8888</span>
+                <span>+359 88 888 7788</span>
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>info@gentlemanscut.bg</span>
+                <span>info@virtuosobarbershop.bg</span>
               </div>
             </div>
           </div>

@@ -7,9 +7,9 @@ const team = [
     id: 1,
     name: "Alexander Petrov",
     role: "Master Barber",
-    image:
-      "https://images.unsplash.com/photo-1516646720587-727f6728837d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description: "10+ years of experience in classic and modern cuts",
+    image: "/alexander.jpg",
+    description:
+      "A seasoned professional with over 10 years of expertise in classic and modern styles, including precision cuts, beard styling, and premium grooming services.",
     specialties: ["Classic Cuts", "Beard Styling", "Hot Towel Shaves"],
     social: {
       instagram: "#",
@@ -20,10 +20,10 @@ const team = [
   {
     id: 2,
     name: "Viktor Ivanov",
-    role: "Senior Barber",
-    image:
-      "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?ixlib=rb-4.0.3",
-    description: "Specialist in modern and trendy hairstyles",
+    role: "Junior Barber",
+    image: "/viktor.jpg",
+    description:
+      "A skilled barber specializing in trendy hairstyles, creative designs, and modern color treatments.",
     specialties: ["Modern Styles", "Hair Design", "Color Treatment"],
     social: {
       instagram: "#",
@@ -33,11 +33,11 @@ const team = [
   },
   {
     id: 3,
-    name: "Viktor Ivanov",
+    name: "Vasil Donev",
     role: "Senior Barber",
-    image:
-      "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?ixlib=rb-4.0.3",
-    description: "Specialist in modern and trendy hairstyles",
+    image: "/vasil.jpg",
+    description:
+      "An experienced barber offering advanced grooming services like intricate hair designs and beard styling.",
     specialties: ["Modern Styles", "Hair Design", "Color Treatment"],
     social: {
       instagram: "#",
@@ -47,11 +47,11 @@ const team = [
   },
   {
     id: 4,
-    name: "Viktor Ivanov",
-    role: "Senior Barber",
-    image:
-      "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?ixlib=rb-4.0.3",
-    description: "Specialist in modern and trendy hairstyles",
+    name: "Stoyan Bairev",
+    role: "Chef Barber",
+    image: "/stoyan.jpg",
+    description:
+      "A creative leader known for modern styles, hair treatments, and setting grooming trends.",
     specialties: ["Modern Styles", "Hair Design", "Color Treatment"],
     social: {
       instagram: "#",
@@ -61,10 +61,9 @@ const team = [
   },
   {
     id: 5,
-    name: "Viktor Ivanov",
-    role: "Senior Barber",
-    image:
-      "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?ixlib=rb-4.0.3",
+    name: "Radostin Georgiev",
+    role: "Barber",
+    image: "/radostin.jpg",
     description: "Specialist in modern and trendy hairstyles",
     specialties: ["Modern Styles", "Hair Design", "Color Treatment"],
     social: {
@@ -75,11 +74,11 @@ const team = [
   },
   {
     id: 6,
-    name: "Viktor Ivanov",
-    role: "Senior Barber",
-    image:
-      "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?ixlib=rb-4.0.3",
-    description: "Specialist in modern and trendy hairstyles",
+    name: "Kaloyan Milev",
+    role: "Top Barber",
+    image: "/kaloyan.jpg",
+    description:
+      "A highly skilled barber delivering premium cuts, beard care, and advanced styling services.",
     specialties: ["Modern Styles", "Hair Design", "Color Treatment"],
     social: {
       instagram: "#",
@@ -111,7 +110,7 @@ export default function TeamPage() {
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-              <p className="text-primary mb-3 bg-stone-700/50 p-1 px-4 rounded-md w-[40%] whitespace-nowrap">
+              <p className="text-primary mb-3 flex justify-center items-center bg-stone-700/50 p-1 px-4 rounded-md w-[35%] whitespace-nowrap">
                 {member.role}
               </p>
               <p className="text-muted-foreground mb-4">{member.description}</p>

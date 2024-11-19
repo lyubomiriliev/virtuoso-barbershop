@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useSearchParams } from "next/navigation";
 
 const timeSlots = [
   "09:00",
@@ -34,19 +35,57 @@ const services = [
     duration: "45 min",
     price: "35 BGN",
   },
-  { id: "beard", name: "Beard Trim", duration: "30 min", price: "25 BGN" },
-  { id: "shave", name: "Hot Towel Shave", duration: "45 min", price: "40 BGN" },
+  {
+    id: "beard",
+    name: "Beard Trim",
+    duration: "30 min",
+    price: "25 BGN",
+  },
   {
     id: "combo",
-    name: "Hair & Beard Combo",
+    name: "Combo Hair & Beard",
+    duration: "60 min",
+    price: "50 BGN",
+  },
+  {
+    id: "fatherSon",
+    name: "Father & Son",
     duration: "75 min",
-    price: "55 BGN",
+    price: "65 BGN",
+  },
+  {
+    id: "styling",
+    name: "Perfect Styling",
+    duration: "15 min",
+    price: "15 BGN",
+  },
+  {
+    id: "camouflage",
+    name: "Beard & Camouflage",
+    duration: "25 min",
+    price: "25 BGN",
+  },
+  {
+    id: "eyebrows",
+    name: "Eyebrows trim & shape",
+    duration: "15 min",
+    price: "15 BGN",
+  },
+  {
+    id: "face",
+    name: "Face Cleansing",
+    duration: "20 min",
+    price: "25 BGN",
   },
 ];
 
 const barbers = [
   { id: "alex", name: "Alexander Petrov" },
   { id: "viktor", name: "Viktor Ivanov" },
+  { id: "vasil", name: "Vasil Donev" },
+  { id: "stoyan", name: "Stoyan Bairev" },
+  { id: "radostin", name: "Radostin Georgiev" },
+  { id: "kaloyan", name: "Kaloyan Milev" },
 ];
 
 export default function BookingPage() {
@@ -55,6 +94,14 @@ export default function BookingPage() {
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedBarber, setSelectedBarber] = useState<string>("");
   const { toast } = useToast();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const service = searchParams.get("service");
+    if (service) {
+      setSelectedService(service);
+    }
+  }, [searchParams]);
 
   const handleBooking = () => {
     if (!date || !selectedTime || !selectedService || !selectedBarber) {
