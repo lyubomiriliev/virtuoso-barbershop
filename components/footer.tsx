@@ -1,4 +1,5 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Scissors } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -8,10 +9,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Scissors className="w-6 h-6" />
-              <span className="font-bold text-xl">The Gentleman's Cut</span>
+              <Image
+                width={600}
+                height={200}
+                alt="/"
+                src="/virtuosoLogo.svg"
+                className="w-2/3"
+              />
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground max-w-[250px] text-center">
               Premium barbershop experience in the heart of Sofia.
             </p>
           </div>
@@ -37,16 +43,28 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <div className="space-y-3">
-              <Link href="/services" className="block text-muted-foreground hover:text-primary">
+              <Link
+                href="/services"
+                className="block text-muted-foreground hover:text-primary"
+              >
                 Services
               </Link>
-              <Link href="/team" className="block text-muted-foreground hover:text-primary">
+              <Link
+                href="/team"
+                className="block text-muted-foreground hover:text-primary"
+              >
                 Our Team
               </Link>
-              <Link href="/booking" className="block text-muted-foreground hover:text-primary">
+              <Link
+                href="/booking"
+                className="block text-muted-foreground hover:text-primary"
+              >
                 Book Now
               </Link>
-              <Link href="/contact" className="block text-muted-foreground hover:text-primary">
+              <Link
+                href="/contact"
+                className="block text-muted-foreground hover:text-primary"
+              >
                 Contact
               </Link>
             </div>
@@ -66,7 +84,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} The Gentleman's Cut. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Virtuoso Barbershop. All rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>
