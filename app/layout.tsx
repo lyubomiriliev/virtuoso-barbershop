@@ -9,7 +9,7 @@ import Footer from '@/components/footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Elite Barbers Sofia',
+  title: 'Virtuoso Barbershop, Sofia',
   description: 'Premium barbershop services in Sofia, Bulgaria',
 };
 

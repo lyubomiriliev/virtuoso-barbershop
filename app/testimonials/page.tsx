@@ -10,7 +10,7 @@ const Testimonials: React.FC = () => {
       customerName: "Vasil Todorov",
       img: "/client1.webp",
       review:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, ipsa?",
+        "The barbers here are true professionals! I always leave with a sharp haircut and perfectly styled beard. The atmosphere is welcoming, and the service is exceptional every time.",
       rating: 5,
     },
     {
@@ -18,22 +18,22 @@ const Testimonials: React.FC = () => {
       customerName: "Ivan Kitanov",
       img: "/client2.webp",
       review:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, ipsa?",
-      rating: 4,
+        "This barbershop is a gem! The online booking is super convenient, and the barbers are very skilled. Highly recommend it for anyone looking for top-notch grooming.",
+      rating: 5,
     },
     {
       id: 3,
       customerName: "Alexander Topalov",
       img: "/client3.webp",
       review:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, ipsa?",
+        "I took my son here for a Father & Son haircut session, and we were both thrilled with the results! The barbers were friendly, and the attention to detail was impressive.",
       rating: 5,
     },
   ];
 
   return (
     <section className="w-full py-16 px-4 bg-background overflow-hidden">
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 pb-10">
         <h1 className="text-4xl font-bold mb-4">Testimonials</h1>
         <p className="text-lg text-muted-foreground">
           What our customers say about us
@@ -58,16 +58,17 @@ const Testimonials: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="mt-12">
+              <div className="mt-12 relative">
                 <h3 className="text-lg font-bold">{client.customerName}</h3>
-                <p className="text-sm text-muted-foreground relative mt-4">
-                  <Quote className="absolute -top-8 lg:-top-2 -left-2 text-muted-foreground w-6 h-6" />
+                <Quote className="absolute -top-8 lg:-top-2 -left-2 text-muted-foreground w-6 h-6" />
+                <p className="text-sm italic text-muted-foreground text-justify relative mt-4">
                   {client.review}
-                  <Quote className="absolute -bottom-4 lg:-bottom-2 -right-2 text-muted-foreground w-6 h-6" />
                 </p>
+                <Quote className="absolute -bottom-4 lg:-bottom-0 -right-2 text-muted-foreground w-6 h-6" />
                 <div className="flex justify-center items-center mt-4 space-x-1">
                   {Array.from({ length: 5 }, (_, i) => (
                     <Star
+                      fill="yellow"
                       key={i}
                       className={`w-5 h-5 ${
                         i < client.rating ? "text-yellow-500" : "text-muted"

@@ -92,10 +92,12 @@ export default function ServicesPage() {
         {services.map((service) => (
           <Card
             key={service.id}
-            className="pl-4  pr-10 py-8 z-20 relative overflow-hidden hover:scale-110 duration-500 ease-in-out"
+            className="pl-4 pr-10 py-8 z-20 relative overflow-hidden hover:scale-110 duration-500 ease-in-out"
           >
             <h3 className="text-xl font-semibold mb-2 z-20">{service.name}</h3>
-            <div className="bg-gradient-to-r from-background via-background/90 to-background/10 absolute inset-0 -z-10"></div>
+            <div className="w-full bg-gradient-to-r from-background via-background/70 to-background/10 absolute inset-0 -z-10"></div>
+            <div className="w-full bg-gradient-to-r from-background via-background/30 to-background/0 absolute inset-0 -z-10"></div>
+            <div className="w-full bg-gradient-to-r from-background via-background/10 to-background/0 absolute inset-0 -z-10"></div>
             <Image
               width={400}
               height={400}

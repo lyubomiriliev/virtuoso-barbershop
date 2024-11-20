@@ -121,7 +121,7 @@ export default function TeamPage() {
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-              <p className="text-primary mb-3 flex justify-center items-center bg-stone-700/50 p-1 px-4 rounded-md w-[35%] whitespace-nowrap">
+              <p className="text-white dark:text-primary uppercase mb-3 flex justify-center items-center bg-stone-700/50 p-1 px-4 rounded-md w-[45%] whitespace-nowrap">
                 {member.role}
               </p>
               <p className="text-muted-foreground mb-4">{member.description}</p>
