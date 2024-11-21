@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-background border-t">
       <div className="container mx-auto flex flex-col px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
+          <div>
             <div className="flex items-center space-x-2 mb-4">
               <Image
                 width={600}
@@ -59,12 +59,6 @@ export default function Footer() {
               >
                 Book Now
               </Link>
-              <Link
-                href="/contact"
-                className="block text-muted-foreground hover:text-primary"
-              >
-                Contact
-              </Link>
             </div>
           </div>
 
@@ -87,16 +81,16 @@ export default function Footer() {
             reserved.
           </p>
           <p>
-          Website created by{" "}
-          <a
-            href="https://lyubomir-iliev-portfolio.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-yellow-600 underline"
-          >
-            Lyubomir.Dev
-          </a>
-        </p>
+            Website created by{" "}
+            <a
+              href="https://lyubomir-iliev-portfolio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-yellow-600 underline"
+            >
+              Lyubomir.Dev
+            </a>
+          </p>
         </div>
       </div>
     </footer>
