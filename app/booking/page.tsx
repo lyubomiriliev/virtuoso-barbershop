@@ -80,12 +80,12 @@ const services = [
 ];
 
 const barbers = [
-  { id: "alexander", name: "Alexander Petrov" },
-  { id: "viktor", name: "Viktor Ivanov" },
-  { id: "vasil", name: "Vasil Donev" },
-  { id: "stoyan", name: "Stoyan Bairev" },
-  { id: "radostin", name: "Radostin Georgiev" },
-  { id: "kaloyan", name: "Kaloyan Milev" },
+  { id: "Alexander", name: "Alexander Petrov" },
+  { id: "Viktor", name: "Viktor Ivanov" },
+  { id: "Vasil", name: "Vasil Donev" },
+  { id: "Stoyan", name: "Stoyan Bairev" },
+  { id: "Radostin", name: "Radostin Georgiev" },
+  { id: "Kaloyan", name: "Kaloyan Milev" },
 ];
 
 export default function BookingPage() {
@@ -93,23 +93,44 @@ export default function BookingPage() {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedBarber, setSelectedBarber] = useState<string>("");
+  const [customerName, setCustomerName] = useState<string>("");
+  const [customerEmail, setCustomerEmail] = useState<string>("");
   const { toast } = useToast();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const service = searchParams.get("service");
-    if (service) {
-      setSelectedService(service);
-    }
-  
-    const barber = searchParams.get("barber");
-    if (barber) {
-      setSelectedBarber(barber);
+    if (searchParams) {
+      const service = searchParams.get("service");
+      if (service) {
+        const matchingService = services.find(
+          (s) => s.name === decodeURIComponent(service)
+        );
+        if (matchingService) {
+          setSelectedService(matchingService.name); // Set the name
+        }
+      }
+
+      const barber = searchParams.get("barber");
+      if (barber) {
+        const matchingBarber = barbers.find(
+          (b) => b.name === decodeURIComponent(barber)
+        );
+        if (matchingBarber) {
+          setSelectedBarber(matchingBarber.name); // Set the name
+        }
+      }
     }
   }, [searchParams]);
 
-  const handleBooking = () => {
-    if (!date || !selectedTime || !selectedService || !selectedBarber) {
+  const handleBooking = async () => {
+    if (
+      !date ||
+      !selectedTime ||
+      !selectedService ||
+      !selectedBarber ||
+      !customerName ||
+      !customerEmail
+    ) {
       toast({
         title: "Please fill in all fields",
         description: "All fields are required to make a booking.",
@@ -122,6 +143,39 @@ export default function BookingPage() {
       title: "Booking Confirmed!",
       description: `Your appointment has been scheduled for ${date.toLocaleDateString()} at ${selectedTime}.`,
     });
+
+    try {
+      const response = await fetch("/api/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: customerEmail,
+          name: customerName,
+          barber: selectedBarber,
+          service: selectedService,
+          date: date.toLocaleDateString(),
+          time: selectedTime,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Email Sent",
+          description: "A confirmation email has been sent to your inbox.",
+        });
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Failed to send confirmation email",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -149,15 +203,44 @@ export default function BookingPage() {
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium mb-2 block">
+                Your Name
+              </label>
+              <input
+                type="text"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder="Enter your name"
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">
+                Your Email
+              </label>
+              <input
+                type="email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">
                 Select Barber
               </label>
-              <Select onValueChange={setSelectedBarber} value={selectedBarber}>
+              <Select
+                onValueChange={(value) => {
+                  setSelectedBarber(value);
+                }}
+                value={selectedBarber}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose a barber" />
                 </SelectTrigger>
                 <SelectContent>
                   {barbers.map((barber) => (
-                    <SelectItem key={barber.id} value={barber.id}>
+                    <SelectItem key={barber.id} value={barber.name}>
                       {barber.name}
                     </SelectItem>
                   ))}
@@ -170,7 +253,9 @@ export default function BookingPage() {
                 Select Service
               </label>
               <Select
-                onValueChange={setSelectedService}
+                onValueChange={(value) => {
+                  setSelectedService(value);
+                }}
                 value={selectedService}
               >
                 <SelectTrigger>
@@ -178,7 +263,7 @@ export default function BookingPage() {
                 </SelectTrigger>
                 <SelectContent>
                   {services.map((service) => (
-                    <SelectItem key={service.id} value={service.id}>
+                    <SelectItem key={service.id} value={service.name}>
                       {service.name} - {service.price}
                     </SelectItem>
                   ))}
@@ -192,7 +277,7 @@ export default function BookingPage() {
               </label>
               <Select onValueChange={setSelectedTime} value={selectedTime}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose a date" />
+                  <SelectValue placeholder="Choose a time" />
                 </SelectTrigger>
                 <SelectContent>
                   {timeSlots.map((time) => (
@@ -208,7 +293,12 @@ export default function BookingPage() {
               className="w-full mt-4"
               onClick={handleBooking}
               disabled={
-                !date || !selectedTime || !selectedService || !selectedBarber
+                !date ||
+                !selectedTime ||
+                !selectedService ||
+                !selectedBarber ||
+                !customerName ||
+                !customerEmail
               }
             >
               Confirm Booking

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const team = [
   {
-    id: "alexander",
+    id: "Alexander",
     name: "Alexander Petrov",
     role: "Master Barber",
     image: "/alexander.jpg",
@@ -21,7 +21,7 @@ const team = [
     },
   },
   {
-    id: "viktor",
+    id: "Viktor",
     name: "Viktor Ivanov",
     role: "Junior Barber",
     image: "/viktor.jpg",
@@ -35,7 +35,7 @@ const team = [
     },
   },
   {
-    id: "vasil",
+    id: "Vasil",
     name: "Vasil Donev",
     role: "Senior Barber",
     image: "/vasil.jpg",
@@ -49,7 +49,7 @@ const team = [
     },
   },
   {
-    id: "stoyan",
+    id: "Stoyan",
     name: "Stoyan Bairev",
     role: "Chef Barber",
     image: "/stoyan.jpg",
@@ -63,7 +63,7 @@ const team = [
     },
   },
   {
-    id: "radostin",
+    id: "Radostin",
     name: "Radostin Georgiev",
     role: "Barber",
     image: "/radostin.jpg",
@@ -76,7 +76,7 @@ const team = [
     },
   },
   {
-    id: "kaloyan",
+    id: "Kaloyan",
     name: "Kaloyan Milev",
     role: "Top Barber",
     image: "/kaloyan.jpg",
@@ -92,13 +92,11 @@ const team = [
 ];
 
 export default function TeamPage() {
-
   const router = useRouter();
 
-  const handleBookBarber = (barberId: string) => {
-    router.push(`/booking?barber=${barberId}`);
+  const handleBookBarber = (barberName: string) => {
+    router.push(`/booking?barber=${encodeURIComponent(barberName)}`);
   };
-  
 
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
@@ -153,8 +151,11 @@ export default function TeamPage() {
                   <Twitter className="h-5 w-5" />
                 </a>
               </div>
-              <div onClick={() => handleBookBarber(member.id)} className="flex py-2 justify-end absolute items-center bottom-0 right-2">
-              <Button variant="secondary">Book now</Button>
+              <div
+                onClick={() => handleBookBarber(member.name)}
+                className="flex py-2 justify-end absolute items-center bottom-0 right-2"
+              >
+                <Button variant="secondary">Book now</Button>
               </div>
             </div>
           </Card>

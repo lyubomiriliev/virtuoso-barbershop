@@ -75,8 +75,8 @@ const services = [
 export default function ServicesPage() {
   const router = useRouter();
 
-  const handleBookNow = (serviceId: string) => {
-    router.push(`/booking?service=${serviceId}`);
+  const handleBookNow = (serviceName: string) => {
+    router.push(`/booking?service=${encodeURIComponent(serviceName)}`);
   };
 
   return (
@@ -113,7 +113,7 @@ export default function ServicesPage() {
             </div>
             <div className="mt-5 flex justify-center w-1/3 lg:w-2/4">
               <Button
-                onClick={() => handleBookNow(service.id)}
+                onClick={() => handleBookNow(service.name)}
                 className="w-full"
               >
                 Book Now
