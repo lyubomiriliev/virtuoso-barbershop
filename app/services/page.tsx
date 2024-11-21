@@ -82,7 +82,16 @@ export default function ServicesPage() {
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Our Services</h1>
+        <div className="w-full flex justify-center items-center ">
+          <h1 className="text-4xl font-bold mb-4">Our Services</h1>
+          <Image
+            width={200}
+            height={200}
+            alt="/"
+            src="/virtuosoLogoIcon.svg"
+            className="w-14 mb-2 pl-2"
+          />
+        </div>
         <p className="text-lg text-muted-foreground">
           Professional grooming services for the modern gentleman
         </p>
@@ -91,8 +100,9 @@ export default function ServicesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service) => (
           <Card
+            onClick={() => handleBookNow(service.name)}
             key={service.id}
-            className="pl-4 pr-10 py-8 z-20 relative overflow-hidden hover:scale-110 duration-500 ease-in-out"
+            className="pl-4 pr-10 py-8 z-0 relative overflow-hidden hover:scale-110 duration-500 ease-in-out"
           >
             <h3 className="text-xl font-semibold mb-2 z-20">{service.name}</h3>
             <div className="w-full bg-gradient-to-r from-background via-background/70 to-background/10 absolute inset-0 -z-10"></div>
@@ -112,12 +122,7 @@ export default function ServicesPage() {
               </p>
             </div>
             <div className="mt-5 flex justify-center w-1/3 lg:w-2/4">
-              <Button
-                onClick={() => handleBookNow(service.name)}
-                className="w-full"
-              >
-                Book Now
-              </Button>
+              <Button className="w-full">Book Now</Button>
             </div>
           </Card>
         ))}

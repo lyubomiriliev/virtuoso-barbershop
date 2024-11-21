@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { addMonths } from "date-fns";
 
 const timeSlots = [
   "09:00",
@@ -178,6 +180,9 @@ export default function BookingPage() {
     }
   };
 
+  const currentMonth = new Date();
+  const nextMonth = addMonths(currentMonth, 1);
+
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
       <div className="text-center mb-12">
@@ -190,12 +195,31 @@ export default function BookingPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4">Select Date</h2>
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={setDate}
-            className="rounded-md border"
-          />
+          <div className="flex gap-2">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              month={currentMonth}
+              className="rounded-md border"
+            />
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              month={nextMonth}
+              className="rounded-md border"
+            />
+          </div>
+          <div className=" w-full flex justify-center items-center mt-5">
+            <Image
+              width={600}
+              height={300}
+              alt="/"
+              src="/virtuosoHeroLogo.svg"
+              className="w-2/3"
+            />
+          </div>
         </Card>
 
         <Card className="p-6">

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const team = [
@@ -101,7 +102,16 @@ export default function TeamPage() {
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Meet Our Team</h1>
+        <div className="flex items-center text-center justify-center">
+          <h1 className="text-4xl font-bold mb-4">Meet Our Team</h1>
+          <Image
+            width={200}
+            height={200}
+            alt="/"
+            src="/virtuosoLogoIcon.svg"
+            className="w-14 mb-2 pl-2"
+          />
+        </div>
         <p className="text-lg text-muted-foreground">
           Expert barbers dedicated to your style
         </p>

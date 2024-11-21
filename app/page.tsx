@@ -46,19 +46,19 @@ export default function Home() {
             </Link>
           </div>
           <Link href="/booking">
-          <div className="absolute bottom-24 right-4 lg:bottom-6 lg:right-6">
-          <div className="relative flex justify-center items-center">
-            {/* Outer Pulsing Ring */}
-            <div className="absolute inset-0 w-24 h-24 lg:w-32 lg:h-32 rounded-full animate-ping bg-yellow-600 opacity-75"></div>
+            <div className="fixed bottom-4 right-4 lg:bottom-6 lg:right-6">
+              <div className="relative flex justify-center items-center">
+                {/* Outer Pulsing Ring */}
+                <div className="absolute inset-0 w-24 h-24 lg:w-32 lg:h-32 rounded-full animate-ping bg-yellow-600 opacity-75"></div>
 
-            {/* Circle Button */}
-            <div className="w-24 h-24 lg:w-32 lg:h-32 border-2 rounded-full flex justify-center items-center border-yellow-600">
-              <div className="w-20 h-20 lg:w-28 lg:h-28 whitespace-nowrap object-cover rounded-full flex justify-center text-xs lg:text-base items-center uppercase font-bold bg-yellow-600">
-                Book Now
+                {/* Circle Button */}
+                <div className="w-24 h-24 lg:w-32 lg:h-32 border-2 rounded-full flex justify-center items-center border-yellow-600">
+                  <div className="w-20 h-20 lg:w-28 lg:h-28 whitespace-nowrap object-cover rounded-full flex justify-center text-xs lg:text-base items-center uppercase font-bold bg-yellow-600">
+                    Book Now
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          </div>
           </Link>
         </div>
       </section>
