@@ -5,6 +5,8 @@ import TeamPage from "./team/page";
 import ServicesPage from "./services/page";
 import Testimonials from "./testimonials/page";
 import Image from "next/image";
+import BookingPage from "./booking/page";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -95,6 +97,9 @@ export default function Home() {
         <ServicesPage />
         <TeamPage />
         <Testimonials />
+        <Suspense fallback={<div>Loading...</div>}>
+          <BookingPage />
+        </Suspense>
       </section>
     </div>
   );
