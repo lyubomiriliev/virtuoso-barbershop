@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import {
@@ -332,13 +332,5 @@ export default function BookingPage() {
         </Card>
       </div>
     </div>
-  );
-}
-
-export function BookingWrapper() {
-  return (
-    <Suspense fallback={<div>Loading booking page...</div>}>
-      <BookingPage />
-    </Suspense>
   );
 }
