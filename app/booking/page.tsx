@@ -194,9 +194,9 @@ export default function BookingPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="p-6">
+        <Card className="p-6 flex flex-col items-center lg:items-start">
           <h2 className="text-xl font-semibold mb-4">Select Date</h2>
-          <div className="flex gap-2">
+          <div className="flex justify-center gap-2">
             <Calendar
               mode="single"
               selected={date}
@@ -204,13 +204,15 @@ export default function BookingPage() {
               month={currentMonth}
               className="rounded-md border"
             />
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              month={nextMonth}
-              className="rounded-md border"
-            />
+            <div className="hidden lg:flex">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                month={nextMonth}
+                className="rounded-md border"
+              />
+            </div>
           </div>
           <div className=" w-full flex justify-center items-center mt-5">
             <Image
