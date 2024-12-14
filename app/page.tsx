@@ -68,26 +68,34 @@ export default function Home() {
       <section className="pt-20 bg-background">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <FeatureCard
-              icon={Scissors}
-              title="Expert Services"
-              description="Professional cuts and styling by master barbers"
-            />
-            <FeatureCard
-              icon={Users}
-              title="Skilled Team"
-              description="Experienced barbers trained in latest techniques"
-            />
-            <FeatureCard
-              icon={Calendar}
-              title="Easy Booking"
-              description="Simple online appointment scheduling"
-            />
-            <FeatureCard
-              icon={Clock}
-              title="Flexible Hours"
-              description="Open 7 days a week for your convenience"
-            />
+            <Link href="/services">
+              <FeatureCard
+                icon={Scissors}
+                title="Expert Services"
+                description="Professional cuts and styling by master barbers"
+              />
+            </Link>
+            <Link href="/team">
+              <FeatureCard
+                icon={Users}
+                title="Skilled Team"
+                description="Experienced barbers trained in latest techniques"
+              />
+            </Link>
+            <Link href="/booking">
+              <FeatureCard
+                icon={Calendar}
+                title="Easy Booking"
+                description="Simple online appointment scheduling"
+              />
+            </Link>
+            <Link href="/booking">
+              <FeatureCard
+                icon={Clock}
+                title="Flexible Hours"
+                description="Open 7 days a week for your convenience"
+              />
+            </Link>
           </div>
         </div>
       </section>

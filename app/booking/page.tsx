@@ -14,81 +14,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { addMonths } from "date-fns";
-
-const timeSlots = [
-  "09:00",
-  "10:00",
-  "11:00",
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-  "19:00",
-];
-
-const services = [
-  {
-    id: "haircut",
-    name: "Classic Haircut",
-    duration: "45 min",
-    price: "35 BGN",
-  },
-  {
-    id: "beard",
-    name: "Beard Trim",
-    duration: "30 min",
-    price: "25 BGN",
-  },
-  {
-    id: "combo",
-    name: "Combo Hair & Beard",
-    duration: "60 min",
-    price: "50 BGN",
-  },
-  {
-    id: "fatherSon",
-    name: "Father & Son",
-    duration: "75 min",
-    price: "65 BGN",
-  },
-  {
-    id: "styling",
-    name: "Perfect Styling",
-    duration: "15 min",
-    price: "15 BGN",
-  },
-  {
-    id: "camouflage",
-    name: "Beard & Camouflage",
-    duration: "25 min",
-    price: "25 BGN",
-  },
-  {
-    id: "eyebrows",
-    name: "Eyebrows trim & shape",
-    duration: "15 min",
-    price: "15 BGN",
-  },
-  {
-    id: "face",
-    name: "Face Cleansing",
-    duration: "20 min",
-    price: "25 BGN",
-  },
-];
-
-const barbers = [
-  { id: "Alexander", name: "Alexander Petrov" },
-  { id: "Viktor", name: "Viktor Ivanov" },
-  { id: "Vasil", name: "Vasil Donev" },
-  { id: "Stoyan", name: "Stoyan Bairev" },
-  { id: "Radostin", name: "Radostin Georgiev" },
-  { id: "Kaloyan", name: "Kaloyan Milev" },
-];
+import { addMonths, isBefore, isSameDay, startOfDay } from "date-fns";
+import { barbers, services, timeSlots } from "@/lib/constants";
 
 export default function BookingPage() {
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -100,6 +27,25 @@ export default function BookingPage() {
   const { toast } = useToast();
 
   const searchParams = useSearchParams();
+
+  const currentDate = new Date();
+  const currentMonth = new Date();
+  const nextMonth = addMonths(currentMonth, 1);
+
+  const filteredTimeSlots = timeSlots.filter((time) => {
+    if (!date) return false;
+    const [hours, minutes] = time.split(":").map(Number);
+    const selectedDateTime = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      hours,
+      minutes
+    );
+    return isSameDay(date, currentDate)
+      ? selectedDateTime > currentDate
+      : selectedDateTime > startOfDay(currentDate);
+  });
 
   useEffect(() => {
     if (searchParams) {
@@ -181,9 +127,6 @@ export default function BookingPage() {
     }
   };
 
-  const currentMonth = new Date();
-  const nextMonth = addMonths(currentMonth, 1);
-
   return (
     <div className="max-w-7xl mx-auto py-24 px-4">
       <div className="text-center mb-12">
@@ -194,7 +137,7 @@ export default function BookingPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="p-6 flex flex-col items-center lg:items-start">
+        <Card className="p-6 flex flex-col items-center lg:items-center">
           <h2 className="text-xl font-semibold mb-4">Select Date</h2>
           <div className="flex justify-center gap-2">
             <Calendar
@@ -203,16 +146,10 @@ export default function BookingPage() {
               onSelect={setDate}
               month={currentMonth}
               className="rounded-md border"
+              disabled={(date) =>
+                isBefore(startOfDay(date), startOfDay(currentDate))
+              }
             />
-            <div className="hidden lg:flex">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                month={nextMonth}
-                className="rounded-md border"
-              />
-            </div>
           </div>
           <div className=" w-full flex justify-center items-center mt-5">
             <Image
@@ -220,7 +157,7 @@ export default function BookingPage() {
               height={300}
               alt="/"
               src="/virtuosoHeroLogo.svg"
-              className="w-2/3"
+              className="w-2/4"
             />
           </div>
         </Card>
@@ -307,7 +244,7 @@ export default function BookingPage() {
                   <SelectValue placeholder="Choose a time" />
                 </SelectTrigger>
                 <SelectContent>
-                  {timeSlots.map((time) => (
+                  {filteredTimeSlots.map((time) => (
                     <SelectItem key={time} value={time}>
                       {time}
                     </SelectItem>
