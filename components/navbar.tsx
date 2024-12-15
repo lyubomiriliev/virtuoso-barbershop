@@ -49,6 +49,8 @@ const Navbar = () => {
                 pathname === route.href
                   ? "text-black dark:text-white"
                   : "text-muted-foreground"
+              }${
+                route.label === "Book Now" ? " text-yellow-600 font-bold" : ""
               }`}
             >
               {route.label}
@@ -73,7 +75,7 @@ const Navbar = () => {
                   pathname === route.href
                     ? "text-black dark:text-white"
                     : "text-muted-foreground"
-                }`}
+                }${route.label === "Book Now" ? " text-yellow-600" : ""}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {route.label}

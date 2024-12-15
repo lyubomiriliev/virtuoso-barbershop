@@ -14,11 +14,12 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { addMonths, isBefore, isSameDay, startOfDay } from "date-fns";
+import { addMonths, isBefore, isSameDay, startOfDay, format } from "date-fns";
 import { barbers, services, timeSlots } from "@/lib/constants";
 
 export default function BookingPage() {
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedBarber, setSelectedBarber] = useState<string>("");
@@ -34,6 +35,8 @@ export default function BookingPage() {
 
   const filteredTimeSlots = timeSlots.filter((time) => {
     if (!date) return false;
+    if (bookedSlots.includes(time)) return false;
+
     const [hours, minutes] = time.split(":").map(Number);
     const selectedDateTime = new Date(
       date.getFullYear(),
@@ -71,6 +74,32 @@ export default function BookingPage() {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    if (date) {
+      const fetchBookedSlots = async () => {
+        try {
+          const response = await fetch(
+            `/api/bookings?date=${format(date, "yyyy-MM-dd")}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setBookedSlots(data.bookedSlots || []);
+          } else {
+            throw new Error("Failed to fetch booked slots");
+          }
+        } catch (error) {
+          console.error(error);
+          toast({
+            title: "Error",
+            description: "Failed to fetch booked slots",
+            variant: "destructive",
+          });
+        }
+      };
+      fetchBookedSlots();
+    }
+  }, [date, toast]);
+
   const handleBooking = async () => {
     if (
       !date ||
@@ -93,8 +122,10 @@ export default function BookingPage() {
       description: `Your appointment has been scheduled for ${date.toLocaleDateString()} at ${selectedTime}.`,
     });
 
+    const formattedDate = date.toLocaleDateString();
+
     try {
-      const response = await fetch("/api/emails", {
+      const emailResponse = await fetch("/api/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,24 +135,50 @@ export default function BookingPage() {
           name: customerName,
           barber: selectedBarber,
           service: selectedService,
-          date: date.toLocaleDateString(),
+          date: formattedDate,
           time: selectedTime,
         }),
       });
 
-      if (response.ok) {
+      if (emailResponse.ok) {
         toast({
           title: "Email Sent",
           description: "A confirmation email has been sent to your inbox.",
         });
-      } else {
-        throw new Error("Failed to send email");
       }
+
+      const bookingResponse = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: formattedDate,
+          time: selectedTime,
+        }),
+      });
+
+      if (!bookingResponse.ok) {
+        const errorData = await bookingResponse.json();
+        toast({
+          title: "Booking Failed",
+          description:
+            errorData.error || "The selected slot is already booked.",
+          variant: "destructive",
+        });
+      }
+
+      setSelectedTime("");
+      setSelectedService("");
+      setSelectedBarber("");
+      setCustomerName("");
+      setCustomerEmail("");
+      setBookedSlots((prev) => [...prev, selectedTime]);
     } catch (error) {
       console.error(error);
       toast({
         title: "Error",
-        description: "Failed to send confirmation email",
+        description: "Failed to send confirmation email or save booking time",
         variant: "destructive",
       });
     }
